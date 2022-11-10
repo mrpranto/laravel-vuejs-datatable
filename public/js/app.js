@@ -5379,6 +5379,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5388,8 +5415,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      id: '',
+      classInfo: '',
+      name: '',
+      phone: '',
+      email: '',
+      age: '',
+      address: '',
       column_name: '',
       students: {},
+      classes: [],
+      hide_columns: [],
+      paginate: 10,
+      search: '',
+      order_by: 'id',
+      order_dir: 'desc',
       columns: [{
         title: 'ID',
         data: 'id'
@@ -5411,16 +5451,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         title: 'Address',
         data: 'address'
-      }],
-      hide_columns: [],
-      paginate: 10,
-      search: '',
-      order_by: 'id',
-      order_dir: 'desc'
+      }]
     };
   },
   mounted: function mounted() {
     this.getStudents();
+    this.getClasses();
   },
   watch: {
     paginate: function paginate() {
@@ -5434,14 +5470,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     order_by: function order_by() {
       this.getStudents();
+    },
+    id: function id() {
+      this.getStudents();
+    },
+    classInfo: function classInfo() {
+      this.getStudents();
+    },
+    name: function name() {
+      this.getStudents();
+    },
+    phone: function phone() {
+      this.getStudents();
+    },
+    email: function email() {
+      this.getStudents();
+    },
+    age: function age() {
+      this.getStudents();
+    },
+    address: function address() {
+      this.getStudents();
     }
   },
   methods: {
-    getStudents: function getStudents() {
+    getClasses: function getClasses() {
       var _this = this;
+      axios.get('/api/class-info').then(function (response) {
+        _this.classes = response.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    getStudents: function getStudents() {
+      var _this2 = this;
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      axios.get('/api/students?page=' + page + '&paginate=' + this.paginate + '&search=' + this.search + '&order_by=' + this.order_by + '&order_dir=' + this.order_dir).then(function (response) {
-        _this.students = response.data;
+      axios.get('/api/students?page=' + page + '&paginate=' + this.paginate + '&search=' + this.search + '&id=' + this.id + '&classInfo=' + this.classInfo + '&name=' + this.name + '&phone=' + this.phone + '&email=' + this.email + '&age=' + this.age + '&address=' + this.address + '&order_by=' + this.order_by + '&order_dir=' + this.order_dir).then(function (response) {
+        _this2.students = response.data;
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -5461,13 +5526,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.order_dir = dir;
     },
     downloadPdf: function downloadPdf() {
+      var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return window.open('/api/download-pdf');
+                return window.open('/api/download-pdf?hide_col=' + _this3.hide_columns);
               case 2:
               case "end":
                 return _context.stop();
@@ -5477,13 +5543,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     downloadExcel: function downloadExcel() {
+      var _this4 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return window.open('/api/download-excel');
+                return window.open('/api/download-excel?hide_col=' + _this4.hide_columns);
               case 2:
               case "end":
                 return _context2.stop();
@@ -5493,13 +5560,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     downloadCsv: function downloadCsv() {
+      var _this5 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return window.open('/api/download-csv');
+                return window.open('/api/download-csv?hide_col=' + _this5.hide_columns);
               case 2:
               case "end":
                 return _context3.stop();
@@ -29515,7 +29583,184 @@ var render = function () {
           ),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-2" }, [
+        _c("div", { staticClass: "col-1" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.lazy",
+                value: _vm.id,
+                expression: "id",
+                modifiers: { lazy: true },
+              },
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: { type: "text", placeholder: "Id..." },
+            domProps: { value: _vm.id },
+            on: {
+              change: function ($event) {
+                _vm.id = $event.target.value
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-1" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.classInfo,
+                  expression: "classInfo",
+                },
+              ],
+              staticClass: "form-select form-select-sm",
+              attrs: { "aria-label": ".form-select-sm example" },
+              on: {
+                change: function ($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function (o) {
+                      return o.selected
+                    })
+                    .map(function (o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.classInfo = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                },
+              },
+            },
+            [
+              _c("option", { attrs: { value: "" } }, [_vm._v("Classes")]),
+              _vm._v(" "),
+              _vm._l(_vm.classes, function (class_info, index) {
+                return _c(
+                  "option",
+                  { key: index, domProps: { value: class_info.id } },
+                  [_vm._v(_vm._s(class_info.class_name))]
+                )
+              }),
+            ],
+            2
+          ),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-1" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.lazy",
+                value: _vm.name,
+                expression: "name",
+                modifiers: { lazy: true },
+              },
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: { type: "text", placeholder: "Name..." },
+            domProps: { value: _vm.name },
+            on: {
+              change: function ($event) {
+                _vm.name = $event.target.value
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-1" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.lazy",
+                value: _vm.phone,
+                expression: "phone",
+                modifiers: { lazy: true },
+              },
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: { type: "text", placeholder: "Phone..." },
+            domProps: { value: _vm.phone },
+            on: {
+              change: function ($event) {
+                _vm.phone = $event.target.value
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-1" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.lazy",
+                value: _vm.email,
+                expression: "email",
+                modifiers: { lazy: true },
+              },
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: { type: "text", placeholder: "Email..." },
+            domProps: { value: _vm.email },
+            on: {
+              change: function ($event) {
+                _vm.email = $event.target.value
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-1" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.lazy",
+                value: _vm.age,
+                expression: "age",
+                modifiers: { lazy: true },
+              },
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: { type: "text", placeholder: "Age..." },
+            domProps: { value: _vm.age },
+            on: {
+              change: function ($event) {
+                _vm.age = $event.target.value
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-1" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.lazy",
+                value: _vm.address,
+                expression: "address",
+                modifiers: { lazy: true },
+              },
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: { type: "text", placeholder: "Address..." },
+            domProps: { value: _vm.address },
+            on: {
+              change: function ($event) {
+                _vm.address = $event.target.value
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-1" }, [
           _c("input", {
             directives: [
               {
@@ -29537,67 +29782,7 @@ var render = function () {
           }),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-1" }, [
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.column_name,
-                  expression: "column_name",
-                },
-              ],
-              staticClass: "form-select form-select-sm",
-              attrs: { "aria-label": ".form-select-sm example" },
-              on: {
-                change: [
-                  function ($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function (o) {
-                        return o.selected
-                      })
-                      .map(function (o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.column_name = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  },
-                  _vm.columnHide,
-                ],
-              },
-            },
-            [
-              _c("option", { attrs: { value: "" } }, [_vm._v("- Columns -")]),
-              _vm._v(" "),
-              _vm._l(_vm.columns, function (col, index) {
-                return _c(
-                  "option",
-                  {
-                    key: index,
-                    class: _vm.hide_columns.includes(col.data)
-                      ? "column_disable"
-                      : "",
-                    domProps: { value: col.data },
-                  },
-                  [
-                    _vm._v(
-                      "\n                      " +
-                        _vm._s(col.title) +
-                        "\n                    "
-                    ),
-                  ]
-                )
-              }),
-            ],
-            2
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-8" }, [
+        _c("div", { staticClass: "col-2" }, [
           _c(
             "button",
             {
@@ -29646,6 +29831,41 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "row mt-3" }, [
+        _c(
+          "div",
+          { staticClass: "col-12 mb-3" },
+          [
+            _vm._l(_vm.columns, function (col, index) {
+              return [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("input", {
+                    staticClass: "form-check-input",
+                    attrs: { type: "checkbox", id: col.data },
+                    domProps: { value: col.data },
+                    on: { click: _vm.columnHide },
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: col.data },
+                    },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(col.title) +
+                          "\n                        "
+                      ),
+                    ]
+                  ),
+                ]),
+              ]
+            }),
+          ],
+          2
+        ),
+        _vm._v(" "),
         _c(
           "div",
           { staticClass: "col-12" },

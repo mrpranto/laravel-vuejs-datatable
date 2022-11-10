@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('class-info', [StudentController::class, 'classInfos']);
 Route::get('students', [StudentController::class, 'students']);
 Route::get('download-pdf', [StudentController::class, 'downloadPDF']);
 Route::get('download-excel', [StudentController::class, 'downloadExcel']);

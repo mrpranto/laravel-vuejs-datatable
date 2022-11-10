@@ -1,25 +1,54 @@
 <table>
     <thead>
+
     <tr>
-        <th>SL</th>
-        <th>Class Name</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Age</th>
-        <th>Address</th>
+        @if(!in_array('id', $hide_columns))
+            <th>ID</th>
+        @endif
+        @if(!in_array('class_info', $hide_columns))
+            <th>Class Name</th>
+        @endif
+        @if(!in_array('name', $hide_columns))
+            <th>Name</th>
+        @endif
+        @if(!in_array('phone', $hide_columns))
+            <th>Email</th>
+        @endif
+        @if(!in_array('email', $hide_columns))
+            <th>Phone</th>
+        @endif
+        @if(!in_array('age', $hide_columns))
+            <th>Age</th>
+        @endif
+        @if(!in_array('address', $hide_columns))
+            <th>Address</th>
+        @endif
     </tr>
     </thead>
     <tbody>
     @foreach($students as $key => $student)
         <tr>
-            <td>{{ $key+1 }}</td>
-            <td>{{ $student->classInfo->class_name }}</td>
-            <td>{{ $student->name }}</td>
-            <td>{{ $student->email }}</td>
-            <td>{{ $student->phone }}</td>
-            <td>{{ $student->age }}</td>
-            <td>{{ $student->address }}</td>
+            @if(!in_array('id', $hide_columns))
+                <td>{{ $student->id }}</td>
+            @endif
+            @if(!in_array('class_info', $hide_columns))
+                <td>{{ $student->classInfo->class_name }}</td>
+            @endif
+            @if(!in_array('name', $hide_columns))
+                <td>{{ $student->name }}</td>
+            @endif
+            @if(!in_array('phone', $hide_columns))
+                <td>{{ $student->email }}</td>
+            @endif
+            @if(!in_array('email', $hide_columns))
+                <td>{{ $student->phone }}</td>
+            @endif
+            @if(!in_array('age', $hide_columns))
+                <td>{{ $student->age }}</td>
+            @endif
+            @if(!in_array('address', $hide_columns))
+                <td>{{ $student->address }}</td>
+            @endif
         </tr>
     @endforeach
     </tbody>
