@@ -24,3 +24,5 @@ Route::get('students', [StudentController::class, 'students']);
 Route::get('download-pdf', [StudentController::class, 'downloadPDF']);
 Route::get('download-excel', [StudentController::class, 'downloadExcel']);
 Route::get('download-csv', [StudentController::class, 'downloadCSV']);
+
+Route::post('upload-files', [StudentController::class, 'uploadFiles']);

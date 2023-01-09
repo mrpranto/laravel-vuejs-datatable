@@ -6,6 +6,7 @@ use App\Exports\StudentExport;
 use App\Models\ClassInfo;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 
@@ -96,5 +97,28 @@ class StudentController extends Controller
         $hide_columns = explode(',', request('hide_col'));
 
         return Excel::download(new StudentExport($hide_columns), 'Students.csv');
+    }
+
+    public function uploadFiles()
+    {
+        $validation = Validator::make(request()->all(), [
+            'files' => 'required',
+            'files.*' => 'required|mimes:pdf',
+        ]);
+
+        if ($validation->fails()){
+            return response()->json([
+                'error' => $validation->errors()
+            ]);
+        }
+
+        $files = request()->all();
+        foreach ($files['files'] as $file){
+            $file_name = $file->getClientOriginalName();
+            $file->move('pranto', $file_name);
+        }
+        return response()->json([
+            'success' => 'Upload successful!'
+        ]);
     }
 }
